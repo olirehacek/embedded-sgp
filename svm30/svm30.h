@@ -33,7 +33,7 @@
 #include "sensirion_arch_config.h"
 #include "sensirion_common.h"
 #include "sht.h"
-#include "sgp30.h"
+#include "sgpc3.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,10 +43,10 @@ const char *svm_get_driver_version();
 
 s16 svm_probe(void);
 
-s16 svm_measure_iaq_blocking_read(u16 *tvoc_ppb, u16 *co2_eq_ppm,
+s16 svm_measure_iaq_blocking_read(u16 *tvoc_ppb,
                                   s32 *temperature, s32 *humidity);
 
-s16 svm_measure_signals_blocking_read(u16 *ethanol_signal, u16 *h2_signal,
+s16 svm_measure_signals_blocking_read(u16 *ethanol_signal,
                                       s32 *temperature, s32 *humidity);
 
 #ifdef __cplusplus

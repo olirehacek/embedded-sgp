@@ -4,12 +4,12 @@ sht_sources := ${sht_source_dir}/shtc1.c ${sht_common_dir}/sht.h \
                ${sht_common_dir}/sht_common.c ${sht_common_dir}/sht_common.h \
                ${sht_common_dir}/git_version.c ${sht_common_dir}/git_version.h
 
-sgp_source_dir := ../sgp30
+sgp_source_dir := ../sgpc3
 sgp_common_dir := ../sgp-common
-sgp_sources := ${sgp_source_dir}/sgp30_featureset.c \
+sgp_sources := ${sgp_source_dir}/sgpc3_featureset.c \
                ${sgp_common_dir}/sgp_featureset.h \
                ${sgp_common_dir}/sgp_git_version.c ${sgp_common_dir}/sgp_git_version.h \
-               ${sgp_source_dir}/sgp30.c ${sgp_source_dir}/sgp30.h
+               ${sgp_source_dir}/sgpc3.c ${sgp_source_dir}/sgpc3.h
 
 sensirion_common_dir := ../embedded-common
 sensirion_common_sources := ${sensirion_common_dir}/sensirion_arch_config.h \

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Sensirion AG
+ * Copyright (c) 2018, Sensirion AG
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,14 +41,15 @@
 int main(void) {
     u16 i = 0;
     s16 err;
-    u16 tvoc_ppb, co2_eq_ppm;
-    u32 iaq_baseline;
+    u16 tvoc_ppb;
+    u16 iaq_baseline;
     s32 temperature, humidity;
 
     /* Busy loop for initialization. The main loop does not work without
      * a sensor. */
     while (svm_probe() != STATUS_OK) {
         /* printf("SVM30 module probing failed\n"); */
+        /* sleep(1); */
     }
     /* printf("SVM30 module probing successful\n"); */
 
@@ -65,11 +66,9 @@ int main(void) {
 
     /* Run periodic IAQ measurements at defined intervals */
     while (1) {
-        err = svm_measure_iaq_blocking_read(&tvoc_ppb, &co2_eq_ppm,
-                                            &temperature, &humidity);
+        err = svm_measure_iaq_blocking_read(&tvoc_ppb, &temperature, &humidity);
         if (err == STATUS_OK) {
             /* printf("tVOC  Concentration: %dppb\n", tvoc_ppb);
-             * printf("CO2eq Concentration: %dppm\n", co2_eq_ppm);
              * printf("Temperature: %0.3fC\n", temperature / 1000.0f);
              * printf("Humidity: %0.3f%%RH\n", humidity / 1000.0f);
              */
@@ -78,17 +77,17 @@ int main(void) {
         }
 
         /* Persist the current baseline every hour */
-        if (++i % 3600 == 3599) {
+        if (++i % 1800 == 1799) {
             err = sgp_get_iaq_baseline(&iaq_baseline);
             if (err == STATUS_OK) {
                 /* IMPLEMENT: store baseline to presistent storage */
             }
         }
 
-        /* The IAQ measurement must be triggered exactly once per second (SGP30)
-         * to get accurate values.
+        /* The IAQ measurement must be triggered exactly once every two seconds
+         * (SGPC3) to get accurate values.
          */
-        /* sleep(1); // SVM30 / SGP30 */
+        /* sleep(2); // SGPC3 */
     }
     return 0;
 }
