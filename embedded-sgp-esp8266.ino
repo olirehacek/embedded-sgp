@@ -77,14 +77,17 @@ void loop() {
         err = svm_measure_iaq_blocking_read(&tvoc_ppb, &co2_eq_ppm,
                                             &temperature, &humidity);
         if (err == STATUS_OK) {
-            //Serial.println("tVOC  Concentration: %dppb\n", tvoc_ppb);
-            //Serial.println("CO2eq Concentration: %dppm\n", co2_eq_ppm);
-            //Serial.println("Temperature: %0.3fC\n", temperature / 1000.0f);
-            //Serial.println("Humidity: %0.3f%%RH\n", humidity / 1000.0f);
+            Serial.println("tVOC  Concentration:" + (String)tvoc_ppb);
+            Serial.println("CO2eq Concentration:" + (String)co2_eq_ppm);
+            double temp = temperature / 1000.0f;
+            double humi = humidity / 1000.0f;
+            Serial.println("Temperature:" + (String)temp);
+            Serial.println("Humidity:" + (String)humi);
         } else {
             //Serial.println("error reading sensor\n");
         }
 
+        delay(2000);
         /* Persist the current baseline every hour */
         if (++i % 3600 == 3599) {
             err = sgp30_get_iaq_baseline(&iaq_baseline);
